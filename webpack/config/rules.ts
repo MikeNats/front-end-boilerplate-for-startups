@@ -1,4 +1,5 @@
-export default (baseConfig) => [
+import { RuleSetRule } from 'webpack';
+export default (): RuleSetRule[] => [
   {
     test: /\.tsx?$/,
     use: [

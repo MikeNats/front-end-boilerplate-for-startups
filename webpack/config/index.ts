@@ -5,24 +5,26 @@ import devServer from './devServer';
 import entry from './entry';
 import output from './output';
 import baseConfig from './baseConfig';
-import { DEV_TOOLS, ENV } from '../enums';
-export default (rootPath, mode, devToolsMode) => {
+import { DevTools } from '../enums';
+import config from '../../config';
+
+export default (rootPath: string, mode: Environment, devToolsMode?: string) => {
   const envBasedConfig = baseConfig(rootPath, mode);
 
   return {
     target: 'web',
-    mode: envBasedConfig.mode,
+    mode: mode === config.env.LOCAL ? config.env.DEV : config.env.PROD,
     entry: entry(envBasedConfig),
     output: output(envBasedConfig),
     module: {
-      rules: rules(envBasedConfig),
+      rules: rules(),
     },
     plugins: plugins(envBasedConfig),
     resolve: resolve(envBasedConfig),
-    ...(mode === ENV.DEV
+    ...(mode === config.env.LOCAL
       ? {
           devServer: devServer(envBasedConfig),
-          devtool: devToolsMode || DEV_TOOLS[1],
+          devtool: devToolsMode || DevTools.Slowest,
         }
       : {}),
   };

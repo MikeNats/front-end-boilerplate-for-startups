@@ -1,6 +1,19 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "module": "commonjs",
+    "strict": true,
+    "types": [
+      "node",
+      "@wdio/globals/types",
+      "@wdio/devtools-service",
+      "@wdio/mocha-framework",
+      "./types/global.d.ts",
+      "./types/webpack.d.ts"
+    ],
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
     "paths": {
       "*": ["src/*"],
       "test/*": ["test/*"]
@@ -12,6 +25,11 @@
     "target": "es6",
     "jsx": "react"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/view/components/pageLayouts/components/basePageLayout",
+    "./webpack/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

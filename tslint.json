@@ -1,13 +1,60 @@
 {
+    "defaultSeverity": "error",
     "extends": [
         "tslint:recommended",
-        "tslint-config-prettier",
-        "tslint-plugin-prettier"
+        "tslint-config-prettier"
     ],
+    "rules": {
+        "no-var-requires": true,
+        "no-console": [
+            true,
+            "debug",
+            "info",
+            "time",
+            "timeEnd",
+            "trace"
+        ],
+        "no-debugger": true,
+        "no-unused-expression": true,
+        "no-duplicate-imports": true,
+        "prefer-const": true,
+        "quotemark": [
+            true,
+            "single"
+        ],
+        "semicolon": [
+            true,
+            "always"
+        ],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "always",
+                "singleline": "never"
+            }
+        ],
+        "object-literal-sort-keys": false,
+        "object-literal-shorthand": true,
+        "arrow-parens": false,
+        "no-return-await": true,
+        "space-before-function-paren": [
+            true,
+            {
+                "anonymous": "never",
+                "named": "never",
+                "asyncArrow": "always",
+                "method": "never",
+                "constructor": "never"
+            }
+        ]
+    },
+    "linterOptions": {
+        "autoFixOnSave": true
+    },
     "rulesDirectory": [
         "tslint-plugin-prettier"
     ],
-    "rules": {
-        "prettier": true
-    }
+    "plugins": [
+        "tslint-plugin-prettier"
+    ]
 }
