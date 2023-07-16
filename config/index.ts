@@ -1,8 +1,29 @@
-import config from './apps';
 import { Environment } from '../enums';
 import { AppsEnvConfig } from 'types/global';
+import { AppsNames, AppEnvConfig, Apps } from 'types/global';
+import { home as homeConf } from '../packages/ui/home/config';
+import { shell as shellConf } from '../packages/ui/shell/config';
 
-const { shell, home, apps } = config;
+const domain = 'domain.com';
+
+const apps: AppsNames = {
+  shell: 'shell',
+  home: 'home',
+};
+const home = homeConf(domain);
+const shell = shellConf(domain);
+
+const remote = (
+  app: AppEnvConfig,
+  env: Environment,
+): Partial<Record<Apps, string>> => {
+  const { appName } = app;
+  const { protocol, domain, port } = app.env[env];
+  return {
+    [`${appName}`]: `${appName}@${protocol}://${domain}:${port}/remoteEntry.js`,
+  };
+};
+
 const appsEnvConfig = {
   [Environment.LOCAL as Environment]: {
     [apps.shell]: {
@@ -10,7 +31,7 @@ const appsEnvConfig = {
       appName: shell.appName,
       exposes: {},
       remotes: {
-        ...shell.remote(home, Environment.LOCAL),
+        ...remote(home, Environment.LOCAL),
       },
     },
     [apps.home]: {
@@ -26,15 +47,15 @@ const appsEnvConfig = {
       appName: shell.appName,
       exposes: shell.exposes,
       remotes: {
-        ...shell.remote(home, Environment.DEV),
-        ...shell.remote(shell, Environment.DEV),
+        ...remote(home, Environment.DEV),
+        ...remote(shell, Environment.DEV),
       },
     },
     [apps.home]: {
       ...home.env.development,
       appName: home.appName,
       exposes: home.exposes,
-      remotes: { ...shell.remote(shell, Environment.DEV) },
+      remotes: { ...remote(shell, Environment.DEV) },
     },
   },
   [Environment.TEST as Environment]: {
@@ -43,15 +64,15 @@ const appsEnvConfig = {
       appName: shell.appName,
       exposes: shell.exposes,
       remotes: {
-        ...shell.remote(home, Environment.TEST),
-        ...shell.remote(shell, Environment.TEST),
+        ...remote(home, Environment.TEST),
+        ...remote(shell, Environment.TEST),
       },
     },
     [apps.home]: {
       ...home.env.test,
       appName: home.appName,
       exposes: home.exposes,
-      remotes: { ...shell.remote(shell, Environment.TEST) },
+      remotes: { ...remote(shell, Environment.TEST) },
     },
   },
   [Environment.UAT as Environment]: {
@@ -60,15 +81,15 @@ const appsEnvConfig = {
       appName: shell.appName,
       exposes: shell.exposes,
       remotes: {
-        ...shell.remote(home, Environment.UAT),
-        ...shell.remote(shell, Environment.UAT),
+        ...remote(home, Environment.UAT),
+        ...remote(shell, Environment.UAT),
       },
     },
     [apps.home]: {
       ...home.env.uat,
       appName: home.appName,
       exposes: home.exposes,
-      remotes: { ...shell.remote(shell, Environment.UAT) },
+      remotes: { ...remote(shell, Environment.UAT) },
     },
   },
   [Environment.PROD as Environment]: {
@@ -77,15 +98,15 @@ const appsEnvConfig = {
       appName: shell.appName,
       exposes: shell.exposes,
       remotes: {
-        ...shell.remote(home, Environment.PROD),
-        ...shell.remote(shell, Environment.PROD),
+        ...remote(home, Environment.PROD),
+        ...remote(shell, Environment.PROD),
       },
     },
     [apps.home]: {
       ...home.env.production,
       appName: home.appName,
       exposes: home.exposes,
-      remotes: { ...shell.remote(shell, Environment.PROD) },
+      remotes: { ...remote(shell, Environment.PROD) },
     },
   },
 } as AppsEnvConfig;

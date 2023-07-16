@@ -46,10 +46,6 @@ interface AppWebpackConfig extends AppEnvConfigAttrs {
 interface AppEnvConfig {
   appName: Apps;
   exposes: Record<string, string> | string[];
-  remote: (
-    app: AppEnvConfig,
-    env: Environment,
-  ) => Partial<Record<Apps, string>>;
   env: {
     local: AppEnvConfigAttrs;
     development: AppEnvConfigAttrs;

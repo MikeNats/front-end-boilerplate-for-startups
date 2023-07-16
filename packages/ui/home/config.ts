@@ -1,21 +1,8 @@
-import { AppEnvConfig, Apps } from 'types/global';
-import { Environment } from 'enums/index';
+import { AppEnvConfig } from 'types/global';
 
-export const home = (
-  domain: string,
-  remote: (
-    app: AppEnvConfig,
-    env: Environment,
-  ) => Partial<Record<Apps, string>>,
-): AppEnvConfig => ({
+export const home = (domain: string): AppEnvConfig => ({
   appName: 'home',
   exposes: { './Home': './src/view/routes/Home', './utils': './src/utils' },
-  remote: (
-    app: AppEnvConfig,
-    env: Environment,
-  ): Partial<Record<Apps, string>> => ({
-    ...remote(app, env),
-  }),
   env: {
     local: {
       protocol: 'http',

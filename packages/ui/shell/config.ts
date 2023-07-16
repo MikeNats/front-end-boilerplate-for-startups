@@ -1,22 +1,9 @@
-import { AppEnvConfig, Apps } from 'types/global';
-import { Environment } from 'enums/index';
+import { AppEnvConfig } from 'types/global';
 
-export const shell = (
-  domain: string,
-  remote: (
-    app: AppEnvConfig,
-    env: Environment,
-  ) => Partial<Record<Apps, string>>,
-): AppEnvConfig =>
+export const shell = (domain: string): AppEnvConfig =>
   ({
     appName: 'shell',
     exposes: { './Shell': './src/index' },
-    remote: (
-      app: AppEnvConfig,
-      env: Environment,
-    ): Partial<Record<Apps, string>> => ({
-      ...remote(app, env),
-    }),
     env: {
       local: {
         protocol: 'http',
