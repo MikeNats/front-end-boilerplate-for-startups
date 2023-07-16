@@ -46,6 +46,9 @@ declare type DevServer = {
 declare type WebpackResolve = {
   extensions: string[];
   plugins: any[];
+  alias: {
+    [x: string]: string;
+  };
 };
 
 declare type WebpackRules = {
