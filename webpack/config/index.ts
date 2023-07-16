@@ -5,8 +5,7 @@ import devServer from './devServer';
 import entry from './entry';
 import output from './output';
 import appWebpackConfig from './appWebpackConfig';
-import { DevTools } from '../enums';
-import { Environment } from '../../enums';
+import { Environment, DevTools } from '../../enums';
 export default (rootPath: string, env: Environment, devToolsMode?: string) => {
   const envBasedConfig = appWebpackConfig(rootPath, env);
   const webpackConfig = {

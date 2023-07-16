@@ -1,7 +1,6 @@
 import path from 'path';
-import { DevTools } from './enums';
 import config from './config';
-import { Environment } from '../enums';
+import { Environment, DevTools } from '../enums';
 
 const rootPath = path.resolve(__dirname, '../');
 

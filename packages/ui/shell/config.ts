@@ -1,5 +1,6 @@
 import { AppEnvConfig, Apps } from 'types/global';
 import { Environment } from 'enums/index';
+
 export const shell = (
   domain: string,
   remote: (
