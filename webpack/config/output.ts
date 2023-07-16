@@ -1,18 +1,20 @@
-import config from '../../config';
+import { AppWebpackConfig } from 'types/global';
+import { Environment } from '../../enums';
 import { WebpackOutput } from '../../types/webpack.d';
 
-export default (baseConfig: BaseWebpackConfig): WebpackOutput =>
-  ({
-    [config.env.LOCAL]: {
+export default (appWebpackConfig: AppWebpackConfig): WebpackOutput => {
+  return {
+    [Environment.LOCAL as Environment]: {
       filename: '[name].js',
       chunkFilename: '[id].js',
-      publicPath: '/',
-      path: `${baseConfig.rootPath}/${baseConfig.dist}`,
+      publicPath: 'auto',
+      path: `${appWebpackConfig.appPath}/${appWebpackConfig.dist}`,
     },
-    [config.env.PROD]: {
+    [Environment.PROD as Environment]: {
       filename: '[name].[fullhash].js',
       chunkFilename: '[id].[chunkhash].js',
-      publicPath: '/',
-      path: `${baseConfig.rootPath}/${baseConfig.dist}`,
+      publicPath: 'auto',
+      path: `${appWebpackConfig.appPath}/${appWebpackConfig.dist}`,
     },
-  }[baseConfig.mode || config.env.LOCAL]);
+  }[appWebpackConfig.env || Environment.LOCAL];
+};

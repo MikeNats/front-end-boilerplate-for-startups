@@ -1,12 +1,12 @@
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-
 import { WebpackResolve } from '../../types/webpack.d';
+import { AppWebpackConfig } from 'types/global';
 
-export default (baseConfig: BaseWebpackConfig): WebpackResolve => ({
+export default (appWebpackConfig: AppWebpackConfig): WebpackResolve => ({
   extensions: ['.tsx', '.ts', '.js'],
   plugins: [
     new TsconfigPathsPlugin({
-      configFile: `${baseConfig.rootPath}/tsconfig.json`,
+      configFile: `${appWebpackConfig.rootPath}/tsconfig.json`,
     }),
   ],
 });

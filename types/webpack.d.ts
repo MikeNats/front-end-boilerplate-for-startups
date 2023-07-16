@@ -1,4 +1,6 @@
 import { RuleSetRule } from 'webpack';
+import { Environment } from '../enums';
+import { Protocol, Apps } from './global';
 
 interface BaseWebpackConfig {
   protocol: Protocol;
@@ -34,6 +36,11 @@ declare type DevServer = {
   server: Protocol;
   compress: boolean;
   liveReload: boolean;
+  allowedHosts: string;
+  historyApiFallback: boolean;
+  headers: {
+    [x: string]: string;
+  };
 };
 
 declare type WebpackResolve = {
@@ -45,3 +52,15 @@ declare type WebpackRules = {
   test: RegExp;
   use: RuleSetRule[];
 };
+
+declare type EnvConfigAttr =
+  | {
+      [app in Apps]: BaseWebpackConfig;
+    }
+  | {};
+
+declare type RemotesConfig =
+  | {
+      [app in Apps]: string;
+    }
+  | {};

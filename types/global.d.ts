@@ -1,42 +1,60 @@
+import { Environment } from 'enums/index';
 declare type Protocol = 'http' | 'https';
 declare type Visual = 'reference' | 'test' | 'approve' | undefined;
 
-declare type Environment =
-  | 'local'
-  | 'development'
-  | 'test'
-  | 'uat'
-  | 'production';
+declare type Apps = 'shell' | 'home';
 
-declare type EnvConfig = {
+declare type AppsConfig = {
+  [x in Apps]: AppEnvConfigAttrs;
+};
+
+interface AppEnvConfigAttrs {
+  appName?: Apps;
   protocol: Protocol;
   domain: string;
   port: number;
-};
-
-interface EnvMapping {
-  LOCAL: Environment;
-  DEV: Environment;
-  TEST: Environment;
-  UAT: Environment;
-  PROD: Environment;
+  exposes?: Record<string, string>;
+  remotes?: Record<string, string>;
 }
 
-declare type Config = {
-  env: EnvMapping;
-  local: EnvConfig;
-  development: EnvConfig;
-  test: EnvConfig;
-  uat: EnvConfig;
-  production: EnvConfig;
+declare type AppsNames = {
+  [x in Apps]: Apps;
 };
 
-interface BaseWebpackConfig {
-  protocol: Protocol;
-  domain: string;
-  port: number;
+declare type EnvConfig = {
+  [x in Apps]: AppEnvConfigAttrs;
+};
+
+declare type AppsEnvConfig = {
+  [env in Environment]: {
+    [app in Apps]: AppEnvConfigAttrs;
+  };
+};
+
+declare type Config = {
+  [app in Apps]?: AppEnvConfigAttrs;
+};
+
+interface AppWebpackConfig extends AppEnvConfigAttrs {
+  appPath: string;
   rootPath: string;
   dist: string;
-  mode: Environment;
+  env: Environment;
   target: string;
+}
+
+interface AppEnvConfig {
+  appName: Apps;
+  exposes: Record<string, string> | string[];
+  remote: (
+    app: AppEnvConfig,
+    env: Environment,
+  ) => Partial<Record<Apps, string>>;
+  env: {
+    local: AppEnvConfigAttrs;
+    development: AppEnvConfigAttrs;
+    test: AppEnvConfigAttrs;
+    uat: AppEnvConfigAttrs;
+    production: AppEnvConfigAttrs;
+  };
 }

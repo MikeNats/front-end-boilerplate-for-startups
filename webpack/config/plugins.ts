@@ -1,15 +1,44 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { WebpackPluginInstance } from 'webpack';
+import { WebpackPluginInstance, container } from 'webpack';
+// const deps = require('../../package.json').dependencies;
+import { AppWebpackConfig } from '../../types/global.d';
+const { ModuleFederationPlugin } = container;
 
-export default (baseConfig: BaseWebpackConfig): WebpackPluginInstance[] => [
-  new HtmlWebpackPlugin({
-    template: `${baseConfig.rootPath}/index.html`,
-    hash: true,
-    // favicon: `${srcDir}/static/favicon.ico`,
-    filename: 'index.html',
-    inject: true,
-    minify: {
-      collapseWhitespace: true,
-    },
-  }),
-];
+export default (
+  appWebpackConfig: AppWebpackConfig,
+): WebpackPluginInstance[] => {
+  const { exposes, remotes, appName, appPath } = appWebpackConfig;
+  return [
+    new HtmlWebpackPlugin({
+      template: `${appPath}/index.html`,
+      hash: true,
+      inject: true,
+      favicon: `${appPath}/src/view/static/favicon.ico`,
+      filename: 'index.html',
+      minify: {
+        collapseWhitespace: true,
+      },
+    }),
+    new ModuleFederationPlugin({
+      name: appName,
+      filename: 'remoteEntry.js',
+      remotes,
+      exposes,
+      shared: [
+        // {
+        //   // ...deps,
+        //   react: {
+        //     singleton: true,
+        //     requiredVersion: deps.react,
+        //     eager: true,
+        //   },
+        //   'react-dom': {
+        //     singleton: true,
+        //     requiredVersion: deps['react-dom'],
+        //     eager: true,
+        //   },
+        // },
+      ],
+    }),
+  ];
+};

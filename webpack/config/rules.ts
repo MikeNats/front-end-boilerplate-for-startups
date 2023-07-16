@@ -5,9 +5,6 @@ export default (): RuleSetRule[] => [
     use: [
       {
         loader: 'ts-loader',
-        options: {
-          transpileOnly: true,
-        },
       },
     ],
   },

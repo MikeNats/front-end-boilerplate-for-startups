@@ -7,4 +7,4 @@ export enum DevTools {
 }
 
 // Usage example:
-const devTool: DevTools = DevTools.Fastest;
+export const devTool: DevTools = DevTools.Fastest;

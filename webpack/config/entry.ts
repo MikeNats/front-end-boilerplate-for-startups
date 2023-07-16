@@ -1,16 +1,19 @@
-import config from '../../config';
 import { WebpackEntry } from '../../types/webpack.d';
+import { Environment } from '../../enums';
+import { AppWebpackConfig } from 'types/global';
 
-export default (baseConfig: BaseWebpackConfig): WebpackEntry =>
-  ({
-    [config.env.LOCAL]: {
+export default (appWebpackConfig: AppWebpackConfig): WebpackEntry => {
+  const { protocol, domain, port, env, appPath } = appWebpackConfig;
+  return {
+    [Environment.LOCAL as Environment]: {
       app: [
-        `webpack-dev-server/client?${baseConfig.protocol}://${baseConfig.domain}:${baseConfig.port}`,
+        `webpack-dev-server/client?${protocol}://${domain}:${port}`,
         'webpack/hot/only-dev-server',
-        `./src/view/index.tsx`,
+        `${appPath}/src/index.tsx`,
       ],
     },
-    [config.env.PROD]: {
-      app: [`./src/view/index.tsx`],
+    [Environment.PROD as Environment]: {
+      app: [`${appPath}/src/index.tsx`],
     },
-  }[baseConfig.mode || config.env.LOCAL]);
+  }[env || Environment.LOCAL];
+};

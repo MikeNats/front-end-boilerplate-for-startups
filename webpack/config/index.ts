@@ -4,16 +4,14 @@ import resolve from './resolve';
 import devServer from './devServer';
 import entry from './entry';
 import output from './output';
-import baseConfig from './baseConfig';
+import appWebpackConfig from './appWebpackConfig';
 import { DevTools } from '../enums';
-import config from '../../config';
-
-export default (rootPath: string, mode: Environment, devToolsMode?: string) => {
-  const envBasedConfig = baseConfig(rootPath, mode);
-
-  return {
-    target: 'web',
-    mode: mode === config.env.LOCAL ? config.env.DEV : config.env.PROD,
+import { Environment } from '../../enums';
+export default (rootPath: string, env: Environment, devToolsMode?: string) => {
+  const envBasedConfig = appWebpackConfig(rootPath, env);
+  const webpackConfig = {
+    target: envBasedConfig.target,
+    mode: env === Environment.LOCAL ? Environment.DEV : Environment.PROD,
     entry: entry(envBasedConfig),
     output: output(envBasedConfig),
     module: {
@@ -21,11 +19,15 @@ export default (rootPath: string, mode: Environment, devToolsMode?: string) => {
     },
     plugins: plugins(envBasedConfig),
     resolve: resolve(envBasedConfig),
-    ...(mode === config.env.LOCAL
+    ...(env === Environment.LOCAL
       ? {
           devServer: devServer(envBasedConfig),
           devtool: devToolsMode || DevTools.Slowest,
         }
       : {}),
   };
+
+  console.log(JSON.stringify(webpackConfig, null, 2));
+
+  return webpackConfig;
 };

@@ -1,35 +1,58 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "allowJs": true,
+    "noEmit": false,
+    "pretty": true,
+    "skipLibCheck": false,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
     "strict": true,
-    "types": [
-      "node",
-      "@wdio/globals/types",
-      "@wdio/devtools-service",
-      "@wdio/mocha-framework",
-      "./types/global.d.ts",
-      "./types/webpack.d.ts"
-    ],
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "strictFunctionTypes": true,
+    "ignoreDeprecations": "5.0",
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "target": "es6",
+    "module": "commonjs",
     "esModuleInterop": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "lib": ["dom", "dom.iterable", "es6"],
+    "types": [
+      // "./enums/index.ts",
+      "node",
+      // "@wdio/globals/types",
+      // "@wdio/devtools-service",
+      // "@wdio/mocha-framework",
+      "./types/global.d.ts",
+      "./types/webpack.d.ts",
+      "./types/react.d.ts"
+    ],
     "baseUrl": ".",
     "paths": {
-      "*": ["src/*"],
-      "test/*": ["test/*"]
+      "test/*": ["test/*"],
+      "enums": ["enums/*"],
+      "home/Home": ["packages/ui/home/src/view/routes/Home"],
+      "home/utils": ["packages/ui/home/src/utils"],
+      "shell/Shell": ["packages/ui/shell/src/view/routes/Shell"]
     },
-    "outDir": "./dist",
+    // "outDir": "./dist",
     "sourceMap": true,
-    "noImplicitAny": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es6",
     "jsx": "react"
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/view/components/pageLayouts/components/basePageLayout",
-    "./webpack/**/*.ts"
+    "packages/**/**/*",
+    "packages/**/*.tsx",
+    "webpack/**/*.ts",
+    "config/*.ts",
+    "enums/*.ts"
   ],
   "exclude": ["node_modules"]
 }
