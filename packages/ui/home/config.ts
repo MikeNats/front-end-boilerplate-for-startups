@@ -1,33 +1,36 @@
 import { AppEnvConfig } from 'types/global';
+const port = 5001;
 
-export const home = (domain: string): AppEnvConfig => ({
+const home = (domain: string): AppEnvConfig => ({
   appName: 'home',
-  exposes: { './Home': './src/view/routes/Home', './utils': './src/utils' },
+  exposes: { './Home': './src/view/routes/Home' },
   env: {
     local: {
       protocol: 'http',
       domain: 'localhost',
-      port: 5001,
+      port,
     },
     development: {
-      protocol: 'https',
-      domain: `dev.${domain}`,
-      port: 8081,
+      protocol: 'http',
+      domain: `localhost`,
+      port,
     },
     test: {
       protocol: 'https',
       domain: `test.${domain}`,
-      port: 8081,
+      port,
     },
     uat: {
       protocol: 'https',
       domain: `uat.${domain}`,
-      port: 8081,
+      port,
     },
     production: {
       protocol: 'https',
       domain: `${domain}`,
-      port: 8081,
+      port,
     },
   },
 });
+
+module.exports = home;

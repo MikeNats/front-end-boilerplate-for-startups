@@ -1,11 +1,10 @@
 import { Environment } from '../enums';
 import { AppsEnvConfig } from 'types/global';
 import { AppsNames, AppEnvConfig, Apps } from 'types/global';
-import { home as homeConf } from '../packages/ui/home/config';
-import { shell as shellConf } from '../packages/ui/shell/config';
+const homeConf = require('../packages/ui/home/config');
+const shellConf = require('../packages/ui/shell/config');
 
 const domain = 'domain.com';
-
 const apps: AppsNames = {
   shell: 'shell',
   home: 'home',

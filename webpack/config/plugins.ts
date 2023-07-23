@@ -4,7 +4,7 @@ import { WebpackPluginInstance, container } from 'webpack';
 import { AppWebpackConfig } from '../../types/global.d';
 const { ModuleFederationPlugin } = container;
 
-export default (
+module.exports = (
   appWebpackConfig: AppWebpackConfig,
 ): WebpackPluginInstance[] => {
   const { exposes, remotes, appName, appPath } = appWebpackConfig;

@@ -2,4 +2,4 @@
 Feature: Open Homepage
 
   Scenario: Opening the homepage
-    Given I open the browser with url "/"
+    Given I open home the browser with url "/"

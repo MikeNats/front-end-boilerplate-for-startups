@@ -2,7 +2,7 @@ import { AppWebpackConfig } from 'types/global';
 import { Environment } from '../../enums';
 import { WebpackOutput } from '../../types/webpack.d';
 
-export default (appWebpackConfig: AppWebpackConfig): WebpackOutput => {
+module.exports = (appWebpackConfig: AppWebpackConfig): WebpackOutput => {
   return {
     [Environment.LOCAL as Environment]: {
       filename: '[name].js',

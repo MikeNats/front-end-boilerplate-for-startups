@@ -1,5 +1,5 @@
 import { RuleSetRule } from 'webpack';
-export default (): RuleSetRule[] => [
+module.exports = (): RuleSetRule[] => [
   {
     test: /\.tsx?$/,
     use: [

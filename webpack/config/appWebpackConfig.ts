@@ -1,8 +1,11 @@
 import { Apps, AppWebpackConfig } from 'types/global';
-import { appsEnvConfig } from '../../config';
-import { Environment } from '../../enums';
+const { appsEnvConfig } = require('../../config');
+const { Environment } = require('../../enums');
 
-export default (rootPath: string, env: Environment): AppWebpackConfig => {
+module.exports = (
+  rootPath: string,
+  env: typeof Environment,
+): AppWebpackConfig => {
   const appName = process.env.APP as Apps;
   const appPath = `${rootPath}/packages/ui/${appName}`;
   return {

@@ -1,7 +1,7 @@
 import { AppWebpackConfig } from 'types/global';
 import { DevServer } from '../../types/webpack.d';
 
-export default (appWebpackConfig: AppWebpackConfig): DevServer => ({
+module.exports = (appWebpackConfig: AppWebpackConfig): DevServer => ({
   static: `${appWebpackConfig.appPath}/${appWebpackConfig.dist}`,
   port: appWebpackConfig.port,
   host: appWebpackConfig.domain,

@@ -4,7 +4,7 @@
 
 ### **Build**:
 
-    ``npm run prod:build``
+    ``npm run build:prod``
 
 ### **Unit Tests:**
 
@@ -27,7 +27,7 @@
 
 ```
 
-NODE_ENV=local BROWSER=chrome TAGS='@all' npm run test:e2
+ENV=local BROWSER=chrome TAGS='@all' npm run test:e2
 
 ```
 
@@ -35,12 +35,12 @@ NODE_ENV=local BROWSER=chrome TAGS='@all' npm run test:e2
 
 - E2E with Visual Regration **Test** on given enviroment and given \*\*
 - ```
-  NODE_ENV=local BROWSER=chrome VISUAL=test TAGS='@all' npm run test:e2e:visual
+  ENV=local BROWSER=chrome VISUAL=test TAGS='@all' npm run test:e2e:visual
   ```
 
 ### \*\* **Configuration:**
 
-NODE_ENV:
+ENV:
 
 - local
 - development

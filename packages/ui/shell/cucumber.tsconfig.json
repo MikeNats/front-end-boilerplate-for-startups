@@ -1,0 +1,3 @@
+{
+  "extends": "../../../cucumber.tsconfig.json",
+}

@@ -2,3 +2,4 @@ node_modules
 dist
 backstop_data
 bitmaps_**
+**/coverage

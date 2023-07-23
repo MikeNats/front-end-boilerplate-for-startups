@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  shell:
+    stdin_open: true
+    container_name: shell
+    image: 'shell'
+    build: ./packages/ui/shell
+    restart: always
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - '5000:5000'
+    networks:
+      - app-network
+
+  home:
+    stdin_open: true
+    container_name: home
+    image: 'home'
+    build: ./packages/ui/home
+    restart: always
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - '5001:5001'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+# docker network create app-network
+# docker run -d --name=backend --network=app-network expressapp

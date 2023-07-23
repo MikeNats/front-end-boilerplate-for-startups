@@ -1,11 +1,14 @@
-let common = [
+let global = [
   'packages/**/features/**/*.feature', // Specify our feature files
-  '--require-module ts-node/register', // Load TypeScript module
   '--require packages/**/features/**/*.ts', // Load step definitions
-  '--format progress-bar', // Load progress-bar formatter
-  '--publish-quiet', // Suppress Cucumber's publishing plugin logs
-].join(' ');
+];
 
+let shared = [
+  '--require-module ts-node/register/transpile-only', // Load TypeScript module
+  '--format progress-bar', // Load progress-bar formatter
+  '--require-module tsconfig-paths/register',
+];
 module.exports = {
-  default: common,
+  default: [...shared, ...global].join(' '),
+  shared,
 };

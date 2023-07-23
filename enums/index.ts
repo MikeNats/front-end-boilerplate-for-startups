@@ -12,3 +12,4 @@ export enum DevTools {
   Slow = 'inline-cheap-source-map', // slow
   Slowest = 'inline-source-map', // slowest
 }
+module.exports = { Environment, DevTools };

@@ -1,22 +1,22 @@
-import backstop, { Scenario } from 'backstopjs';
-import { appsEnvConfig } from '../../../../config';
-import { Environment } from '../../../../enums';
-import { Apps, EnvConfig, Visual } from 'types/global';
+import backstop from 'backstopjs';
+import { Scenario } from 'backstopjs';
+import { appsEnvConfig } from './config';
+import { Environment } from './enums';
+import { AppEnvConfigAttrs, Visual } from './types/global';
 
-const app = process.env.APP as Apps;
-
-const env = process.env.NODE_ENV as Environment;
+const env = process.env.ENV as Environment;
 const visual = process.env.VISUAL as Visual;
 
-const { domain, port, protocol } = appsEnvConfig[env || Environment.LOCAL][app];
+const { domain, port, protocol } =
+  appsEnvConfig[env || Environment.LOCAL].shell;
 
-export const envConfig: EnvConfig[Apps] = {
+const envConfig: AppEnvConfigAttrs = {
   domain,
   port,
   protocol,
 };
 
-export const visualRegression = async (
+const visualRegression = async (
   id: string,
   scenarios: Scenario[],
   viewports?: { label: string }[],
@@ -81,3 +81,4 @@ export const visualRegression = async (
   // tslint:disable-next-line:no-console
   console.log('Report generated successfully.');
 };
+module.exports = { envConfig, visualRegression };
