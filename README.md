@@ -1,3 +1,20 @@
+### **The project features:**
+
+* Lerna Mono-repo
+* Individual packages can be extracted to sepearte repos and import eith git submodules.
+* Micro Front-End Architecture
+* Mui Theaming
+* Common Componet Lib
+* Shared code linters and  dependencies.
+* Ability to run End to End tests in the hole application and in a micro front end level.
+* Ability to run Unitests tests in the hole application and in a micro front end level.
+* Configurations for each enviroment: local, dev, test, uat, prod
+* Docker
+* Kubernetes
+* AWS - Teraform
+
+I hope this projects to helps people move faster towards their goals.
+
 ### **Run:**
 
     ``npm run start``
