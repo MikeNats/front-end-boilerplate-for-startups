@@ -1,6 +1,6 @@
 import React from 'react';
 import routes from './';
-import theme from '../theme';
+import {theme} from '../../../../common';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { ErrorBoundary } from '../../../../common';

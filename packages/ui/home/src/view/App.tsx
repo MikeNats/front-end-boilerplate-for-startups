@@ -1,6 +1,6 @@
 import React from 'react';
 import routes from './routes';
-import theme from './theme';
+import {theme} from '../../../common';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';

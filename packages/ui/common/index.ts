@@ -1,3 +1,3 @@
 import ErrorBoundary from './ErrorBoundary';
-
-export { ErrorBoundary };
+import theme from './theme';
+export { ErrorBoundary, theme };
