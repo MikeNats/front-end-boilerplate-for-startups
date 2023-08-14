@@ -1,0 +1,21 @@
+{{- define "common-templates.persistentvolumeclaims" -}}
+{{- range $persistentVolumeClaim := .Values.persistentVolumeClaims }}
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $persistentVolumeClaim.metadata.name }}
+spec:
+  volumeName: {{ $persistentVolumeClaim.spec.volumeName }}
+  accessModes:
+    {{- range $index, $mode := $persistentVolumeClaim.spec.accessModes }}
+    - {{ $mode }}
+    {{- end }}
+  storageClassName: {{ $persistentVolumeClaim.spec.storageClassName }}
+  resources:
+      requests:
+        storage: {{ $persistentVolumeClaim.spec.resources.requests.storage}}
+{{- end }}
+{{- end -}}

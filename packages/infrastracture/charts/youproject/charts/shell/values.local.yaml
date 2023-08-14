@@ -1,0 +1,43 @@
+
+deployment:
+  metadata: 
+    name: shell-deployment
+  replicas: 1
+  spec:
+    selector:
+      matchLabels:
+        app: shell
+        tier: frontend
+    template:
+      metadata:
+        labels:
+          app: shell
+          tier: frontend
+      spec:
+        containers:
+          - name: shell
+            image: xxx:shell
+            imagePullPolicy: Always
+            resources:
+              limits:
+                memory: "128Mi"
+                cpu: "250m"
+            ports:
+              - containerPort: 5000
+    imagePullSecrets:
+      - name: regcred
+          
+service:
+  metadata: 
+    name: shell-service
+  type: ClusterIP
+  selector: 
+    app: shell
+    tier: frontend
+  ports:
+    - name: shell-port
+      port: 5000
+      targetPort: 80
+      protocol: TCP
+
+  

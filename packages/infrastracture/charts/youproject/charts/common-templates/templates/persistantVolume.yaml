@@ -1,0 +1,20 @@
+{{- define "common-templates.persistentvolume" -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.persistentVolume.metadata.name }}
+  labels:
+    {{- range $key, $value :=  .Values.persistentVolume.metadata.labels }}
+    {{ $key }}: {{ $value  }}
+    {{- end }}
+spec:
+  capacity:
+    storage: {{  .Values.persistentVolume.spec.capacity.storage }}
+  accessModes:
+    {{- range $index, $mode :=  .Values.persistentVolume.spec.accessModes }}
+    - {{ $mode }}
+    {{- end }}
+  storageClassName: {{  .Values.persistentVolume.spec.storageClassName }}
+  hostPath:
+    path: {{  .Values.persistentVolume.spec.hostPath.path }}
+{{- end -}}

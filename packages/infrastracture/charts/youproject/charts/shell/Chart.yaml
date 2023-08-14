@@ -1,0 +1,10 @@
+apiVersion: v2
+name: shell
+version: 0.1.0
+description: Helm chart for the shell subchart
+
+
+dependencies:
+  - name: common-templates
+    version: 0.1.0
+    repository: file://./../common-templates

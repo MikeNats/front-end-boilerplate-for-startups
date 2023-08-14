@@ -1,0 +1,14 @@
+persistentVolume:
+  metadata:
+    name: postgres-pv
+    labels:
+      type: "local"
+      bd: "postgres"
+  spec:
+    capacity:
+      storage: 1Gi
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: "standard"
+    hostPath:     
+      path: "/mnt/data"

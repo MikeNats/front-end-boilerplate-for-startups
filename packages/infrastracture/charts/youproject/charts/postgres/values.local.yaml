@@ -1,0 +1,67 @@
+deployment:
+  metadata:
+    name: postgres-deployment
+  spec:
+    replicas: 1
+    selector: 
+     matchLabels:
+        app: postgres
+        tier: db  
+    template:
+      metadata:
+        labels:
+          app: postgres
+          tier: db
+      spec:  
+        containers:
+          - name: postgres
+            image: xxx:postgres
+            imagePullPolicy: Always
+            ports:
+            - containerPort: 5432
+            volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-pv-xxx
+            resources:
+              limits:
+                memory: "128Mi"
+                cpu: "250m"
+            env:             
+              - name: POSTGRES_DB
+                valueFrom:
+                  secretKeyRef:
+                    name: db-secret
+                    key: POSTGRES_DB
+              - name: POSTGRES_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: db-secret
+                    key: POSTGRES_USER
+              - name: POSTGRES_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: db-secret
+                    key: POSTGRES_PASSWORD
+    imagePullSecrets:
+      - name: regcred
+    volumes:
+      - name: postgres-pv-xxx
+        persistentVolumeClaim:
+        claimName: postgres-pvc
+
+service:
+  metadata: 
+    name:  postgres-service
+  type: NodePort
+  selector: 
+    app: postgres
+    tier: db  
+  ports:
+    - name: postgres-port
+      port: 5432
+      targetPort: 5432
+      protocol: TCP
+
+
+
+

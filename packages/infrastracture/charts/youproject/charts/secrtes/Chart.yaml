@@ -1,0 +1,10 @@
+apiVersion: v2
+name: secrtes
+version: 0.1.0
+description: Helm chart for the secrtes subchart
+
+
+dependencies:
+  - name: common-templates
+    version: 0.1.0
+    repository: file://./../common-templates

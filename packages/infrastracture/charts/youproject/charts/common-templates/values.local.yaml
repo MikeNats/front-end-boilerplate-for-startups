@@ -1,0 +1,95 @@
+deployment: 
+  metadata:
+    name: channel-deployment
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: channel
+        tier: backend
+    template:
+      metadata:
+        labels:
+          app: channel
+          tier: backend
+      spec:
+        containers:
+          - name: channel
+            image:  xxx:channel
+            imagePullPolicy: Always
+            resources:
+              limits:
+                memory: "128Mi"
+                cpu: "250m"
+            ports:
+              - containerPort: 4000
+            env:
+              - name: DB_HOST
+                value: postgres-cluster-ip-service
+              - name: POSTGRES_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name:  db-secret
+                    key: POSTGRES_PASSWORD
+              - name: POSTGRES_USER
+                valueFrom:
+                  secretKeyRef:
+                    name:  db-secret
+                    key: POSTGRES_USER
+              - name: POSTGRES_DB
+                valueFrom:
+                  secretKeyRef:
+                    name:  db-secret
+                    key: POSTGRES_DB
+              - name: signJwt
+                valueFrom:
+                  secretKeyRef:
+                    name: server-secret
+                    key: signJwt
+              - name: sgMailApiKey
+                valueFrom:
+                  secretKeyRef:
+                    name: server-secret
+                    key: sgMailApiKey
+    imagePullSecrets:
+      - name: regcred
+          
+service:
+  metadata: 
+    name: channel-service
+  type: ClusterIP
+  selector: 
+    app: channel
+    tier: backend
+  ports:
+    - name: channel-port
+      port: 4000
+      targetPort: 4000
+      protocol: TCP
+      
+persistentVolume:
+  metadata:
+    name: postgres-pv
+    labels:
+      type: "local"
+      bd: "postgres"
+  spec:
+    capacity:
+      storage: 1Gi
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: "standard"
+    hostPath:     
+      path: "/mnt/data"
+
+persistentVolumeClaims:
+  - metadata:
+      name: postgres-pvc
+    spec:
+      volumeName: postgres-pv #Claim by name
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 1Gi #Request 1Gi to 5Gi, depending of the number of claims and the size of of them

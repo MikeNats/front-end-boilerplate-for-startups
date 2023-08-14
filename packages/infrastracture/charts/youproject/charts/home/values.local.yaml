@@ -1,0 +1,43 @@
+
+deployment:
+  metadata: 
+    name: home-deployment
+  replicas: 1
+  spec:
+    selector:
+      matchLabels:
+        app: home
+        tier: frontend
+    template:
+      metadata:
+        labels:
+          app: home
+          tier: frontend
+      spec:
+        containers:
+          - name: home
+            image: xxx:home
+            imagePullPolicy: Always
+            resources:
+              limits:
+                memory: "128Mi"
+                cpu: "250m"
+            ports:
+              - containerPort: 5001
+    imagePullSecrets:
+      - name: regcred
+          
+service:
+  metadata: 
+    name: home-service
+  type: ClusterIP
+  selector: 
+    app: home
+    tier: frontend
+  ports:
+    - name: home-port
+      port: 5001
+      targetPort: 80
+      protocol: TCP
+
+  

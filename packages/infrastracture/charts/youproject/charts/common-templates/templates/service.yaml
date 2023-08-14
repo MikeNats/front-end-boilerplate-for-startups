@@ -1,0 +1,25 @@
+{{- define "common-templates.service" -}}
+apiVersion: v1
+kind: Service
+metadata:
+    {{- range $key, $value := .Values.service.metadata }}
+      {{ $key }}: {{ $value }}
+    {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    {{- range $key, $value := .Values.service.selector }}
+      {{ $key }}: {{ $value }}
+    {{- end }}
+  ports:
+    {{- range $port := .Values.service.ports }}
+      - name: {{ $port.name }}
+        port: {{ $port.port }}
+        {{- if $port.targetPort }}
+        targetPort: {{ $port.targetPort }}
+        {{- end }}
+        {{- if $port.protocol }}
+        protocol: {{ $port.protocol }}
+        {{- end }}
+    {{- end }}
+{{- end -}}

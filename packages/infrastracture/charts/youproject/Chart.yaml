@@ -1,0 +1,28 @@
+apiVersion: v2
+name: dyonisus
+version: 1.0.0
+description: Root Helm chart for dyonisus
+
+
+dependencies:
+- name: volumepostgres
+  repository: file://./charts/volumepostgres
+  version: 0.1.0
+- name: persistentvolumeclaims
+  repository: file://./charts/persistentvolumeclaims
+  version: 0.1.0
+- name: ingres
+  repository: file://./charts/ingres
+  version: 0.1.0
+- name: secrtes
+  repository: file://./charts/secrtes
+  version: 0.1.0
+- name: home
+  repository: file://./charts/home
+  version: 0.1.0
+- name: postgres
+  repository: file://./charts/postgres
+  version: 0.1.0
+- name: shell
+  repository: file://./charts/shell
+  version: 0.1.0

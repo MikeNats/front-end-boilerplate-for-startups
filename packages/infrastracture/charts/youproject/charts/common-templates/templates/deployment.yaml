@@ -1,0 +1,70 @@
+{{- define "common-templates.deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+{{- range $key, $value := .Values.deployment.metadata }}
+  {{ $key }}: {{ $value }}
+{{- end }}
+spec:
+  replicas: {{ .Values.deployment.spec.replicas }}
+  selector:
+    matchLabels:
+    {{- range $selector := .Values.deployment.spec.selector }}
+      {{- range $key, $value := $selector }}
+      {{ $key }}: {{ $value }}
+      {{- end }}
+    {{- end }}
+  template:
+    metadata:
+      labels:
+      {{- range $template := .Values.deployment.spec.template.metadata }}
+        {{- range $key, $value := $template }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
+      {{- end }}
+    spec:
+      containers:
+      {{- range $container := .Values.deployment.spec.template.spec.containers }}
+        - name: {{ $container.name }}
+          image: {{ $container.image }}
+          imagePullPolicy: {{ $container.imagePullPolicy }}
+          resources:
+            limits: 
+              cpu: "{{ $container.resources.limits.cpu }}"
+              memory: "{{ $container.resources.limits.memory }}"
+          ports:
+            {{- range $port := $container.ports }}
+              - containerPort: {{ $port.containerPort }}
+            {{- end }}
+          {{- if $container.env }}     
+          env:
+            {{- range $container.env }}
+            - name: {{ .name }}
+              {{- with .valueFrom }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretKeyRef.name }}
+                  key: {{ .secretKeyRef.key }}
+              {{- else }}
+              value: {{ .value }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+      {{- end }} 
+      {{- if .Values.deployment.spec.imagePullSecrets }}    
+      imagePullSecrets:
+        {{- range $secret :=  .Values.deployment.spec.imagePullSecrets }}
+        - name: {{ $secret.name }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.deployment.spec.volumes }}    
+      volumes:
+        {{- range $volume :=  .Values.deployment.spec.volumes }}
+        - name: {{ $volume.name }}
+          {{- with .persistentVolumeClaim }}
+            persistentVolumeClaim: 
+              claimName: {{ .claimName }}
+            {{- end }}
+        {{- end }}
+        {{- end }}
+{{- end -}}

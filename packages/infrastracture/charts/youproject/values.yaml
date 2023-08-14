@@ -1,0 +1,15 @@
+commonConfigs:
+  enabled: true
+    {{- include "commonConfigs.values.local" . | nindent 2 }}
+
+channel:
+  enabled: true
+    {{- include "channel.values.local" . | nindent 2 }}
+
+postgres:
+  enabled: true
+    {{- include "postgres.values.local" . | nindent 2 }}
+
+shell:
+  enabled: true
+    {{- include "shell.values.local" . | nindent 2 }}

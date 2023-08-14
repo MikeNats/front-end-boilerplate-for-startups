@@ -1,0 +1,6 @@
+dependencies:
+- name: common-templates
+  repository: file://./../common-templates
+  version: 0.1.0
+digest: sha256:6299ef23ed3e02e4b436cf5ea6bbce75f71924b4db6223bfd24c0b4b87681c7b
+generated: "2023-05-13T10:51:40.052376+03:00"

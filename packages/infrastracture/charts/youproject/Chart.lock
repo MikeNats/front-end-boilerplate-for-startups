@@ -1,0 +1,24 @@
+dependencies:
+- name: volumepostgres
+  repository: file://./charts/volumepostgres
+  version: 0.1.0
+- name: persistentvolumeclaims
+  repository: file://./charts/persistentvolumeclaims
+  version: 0.1.0
+- name: ingres
+  repository: file://./charts/ingres
+  version: 0.1.0
+- name: secrtes
+  repository: file://./charts/secrtes
+  version: 0.1.0
+- name: channel
+  repository: file://./charts/channel
+  version: 0.1.0
+- name: postgres
+  repository: file://./charts/postgres
+  version: 0.1.0
+- name: shell
+  repository: file://./charts/shell
+  version: 0.1.0
+digest: sha256:12f6b390ca4c2a866950c51288e8e7552a7afe55b0fa9d994e668a35b108d799
+generated: "2023-05-14T11:00:06.716645+03:00"

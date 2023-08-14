@@ -1,0 +1,31 @@
+secrets:
+  - name: docker-regcred
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: {"apiVersion":"v1","data":{".dockerconfigjson":"xxx"},"kind":"Secret","metadata":{"annotations":{},"creationTimestamp":"2023-03-11T13:34:10Z","name":"regcred","namespace":"default","resourceVersion":"13749","uid":"f761b634-da1f-4b98-85e8-fd87aafdc022"},"type":"kubernetes.io/dockerconfigjson"}
+
+      creationTimestamp: "2023-03-14T11:00:20Z"
+      name: regcred
+      namespace: default
+      resourceVersion: "xxx"
+      uid: 6f3d850d-8332-4026-a364-ef6ce2b1a96e
+    type: kubernetes.io/dockerconfigjson
+    data:     
+      .dockerconfigjson: xxxxxxxxxxx
+  - name: server-secret
+    metadata:
+      name: server-secret
+    type: Opaque
+    data:
+      signJwt: cXdlcnR5MDEhIWFB
+      sgMailApiKey: xxx
+
+  - name: db-secret
+    metadata:
+      name: db-secret
+    type: Opaque
+    data:
+      POSTGRES_DB: xxx
+      POSTGRES_USER: xxx
+      POSTGRES_PASSWORD: xxx
+      PGPASS: xxx

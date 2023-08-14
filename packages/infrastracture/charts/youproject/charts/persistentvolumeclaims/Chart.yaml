@@ -1,0 +1,9 @@
+apiVersion: v2
+name: persistentvolumeclaims
+version: 0.1.0
+description: Helm chart for the persistentvolumeclaims subchart
+
+dependencies:
+  - name: common-templates
+    version: 0.1.0
+    repository: file://./../common-templates
