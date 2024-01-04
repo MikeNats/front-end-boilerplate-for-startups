@@ -1,7 +1,7 @@
 ### **The project features:**
 
 * Lerna Mono-repo
-* Individual packages can be extracted to sepearte repos and import eith git submodules.
+* Individual packages can be extracted to sepearte repos and import with git submodules.
 * Micro Front-End Architecture
 * Mui Theaming
 * Common Componet Lib
